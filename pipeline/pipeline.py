@@ -56,15 +56,15 @@ class ShipPipeline:
 
         # 读取 pipeline 相关配置
         pipe_cfg = config.get("pipeline", {})
-        self._concurrent_mode: bool = pipe_cfg.get("concurrent_mode", False)
-        self._max_concurrent: int = pipe_cfg.get("max_concurrent", 4)
-        self._max_queued_frames: int = pipe_cfg.get("max_queued_frames", 30)
-        self._process_every_n: int = max(1, pipe_cfg.get("process_every_n_frames", 1))
-        self._detect_every_n: int = max(1, pipe_cfg.get("detect_every_n_frames", 1))
-        self._demo_enabled: bool = pipe_cfg.get("demo", False)
-        self._use_agent: bool = pipe_cfg.get("use_agent", False)
-        self._enable_refresh: bool = pipe_cfg.get("enable_refresh", False)
-        self._gap_num: int = pipe_cfg.get("gap_num", 150)
+        self._concurrent_mode: bool = bool(pipe_cfg.get("concurrent_mode", False))
+        self._max_concurrent: int = pipe_cfg.get("max_concurrent") or 4
+        self._max_queued_frames: int = pipe_cfg.get("max_queued_frames") or 30
+        self._process_every_n: int = max(1, pipe_cfg.get("process_every_n_frames") or 1)
+        self._detect_every_n: int = max(1, pipe_cfg.get("detect_every_n_frames") or 1)
+        self._demo_enabled: bool = bool(pipe_cfg.get("demo", False))
+        self._use_agent: bool = bool(pipe_cfg.get("use_agent", False))
+        self._enable_refresh: bool = bool(pipe_cfg.get("enable_refresh", False))
+        self._gap_num: int = pipe_cfg.get("gap_num") or 150
         self._prompt_mode: str = pipe_cfg.get("prompt_mode", "detailed")
 
         # 读取 Agent 数据库配置
